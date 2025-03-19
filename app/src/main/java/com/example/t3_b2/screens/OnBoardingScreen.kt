@@ -1,12 +1,14 @@
 package com.example.t3_b2.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +25,9 @@ fun OnBoardingScreen(
     description: String,
     buttonText: String,
     navController: NavController,
-    nextScreen: String
+    nextScreen: String,
+    showBackButton: Boolean = false,
+    buttonColor: Color = Color(0xFF1E88E5) // Màu mặc định giống Next & Get Started
 ) {
     Column(
         modifier = Modifier
@@ -32,10 +36,14 @@ fun OnBoardingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        Spacer(modifier = Modifier.height(40.dp))
+
         Image(
             painter = painterResource(id = imageRes),
             contentDescription = "OnBoarding Image",
-            modifier = Modifier.size(250.dp)
+            modifier = Modifier
+                .size(320.dp)
+                .weight(1f)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -54,27 +62,56 @@ fun OnBoardingScreen(
             modifier = Modifier.padding(horizontal = 20.dp)
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
-        Button(
-            onClick = { navController.navigate(nextScreen) },
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = buttonText)
+            if (showBackButton) {
+                IconButton(
+                    onClick = { navController.popBackStack() },
+                    modifier = Modifier
+                        .size(50.dp)
+                        .background(buttonColor, shape = CircleShape) // Đặt màu nền và bo tròn
+                        .padding(4.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_back),
+                        contentDescription = "Back Button",
+                        tint = Color.White // Đảm bảo màu icon trắng để nổi bật
+                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp)) // Tăng khoảng cách giữa 2 nút
+            }
+
+            Button(
+                onClick = { navController.navigate(nextScreen) },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(50.dp), // Giữ nguyên chiều rộng, giảm chiều dài
+                colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
+            ) {
+                Text(text = buttonText, fontSize = 18.sp)
+            }
         }
+        Spacer(modifier = Modifier.navigationBarsPadding())
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewOnBoardingScreen() {
-    val navController = rememberNavController() //  Sử dụng NavController an toàn cho preview
+    val navController = rememberNavController()
     OnBoardingScreen(
-        imageRes = R.drawable.ic_launcher_foreground, // Thay bằng hình ảnh thật
+        imageRes = R.drawable.ic_launcher_foreground,
         title = "Easy Time Management",
         description = "Manage your tasks efficiently and prioritize them wisely.",
         buttonText = "Next",
         navController = navController,
-        nextScreen = "screen3"
+        nextScreen = "screen3",
+        showBackButton = true
     )
 }

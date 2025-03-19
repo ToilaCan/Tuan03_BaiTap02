@@ -11,7 +11,9 @@ fun Screen2(navController: NavController) {
     OnBoardingScreen(
         imageRes = R.drawable.image2, // Thay bằng hình thật
         title = "Easy Time Management",
-        description = "Manage your tasks efficiently and prioritize them wisely.",
+        description = "With management based on priority and daily tasks, " +
+                "it will give you convenience in managing and determining " +
+                "the tasks that must be done first",
         buttonText = "Next",
         navController = navController,
         nextScreen = "screen3"

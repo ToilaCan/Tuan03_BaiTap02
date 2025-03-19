@@ -11,9 +11,11 @@ fun Screen3(navController: NavController) {
     OnBoardingScreen(
         imageRes = R.drawable.image3,
         title = "Increase Work Effectiveness",
-        description = "Time management and prioritization of important tasks...",
+        description = "Time management and the determination of more important tasks " +
+                "will give your job statistics better and always improve.",
         buttonText = "Next",
         navController = navController,
-        nextScreen = "screen4"
+        nextScreen = "screen4",
+        showBackButton = true // Hiển thị nút quay lại
     )
 }

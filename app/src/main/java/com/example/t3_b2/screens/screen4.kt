@@ -11,9 +11,12 @@ fun Screen4(navController: NavController) {
     OnBoardingScreen(
         imageRes = R.drawable.image4,
         title = "Reminder Notification",
-        description = "This app provides reminders so you don't forget your tasks...",
+        description = "The advantage of this application is that it also provides " +
+                "reminders for you so you don't forget to keep doing your assignments " +
+                "well and according to the time you have set",
         buttonText = "Get Started",
         navController = navController,
-        nextScreen = "screen1" // Hoặc trang chính của app nếu có
+        nextScreen = "screen1", // Hoặc trang chính của app nếu có
+        showBackButton = true // Hiển thị nút quay lại
     )
 }
